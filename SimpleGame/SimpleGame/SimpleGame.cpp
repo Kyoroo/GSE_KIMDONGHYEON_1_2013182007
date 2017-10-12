@@ -9,21 +9,29 @@ but WITHOUT ANY WARRANTY.
 */
 
 #include "stdafx.h"
+#include "Scene.h"
 #include <iostream>
-#include "Dependencies\glew.h"
-#include "Dependencies\freeglut.h"
 
 #include "Renderer.h"
 
 Renderer *g_Renderer = NULL;
+Scene *CurrentScene;
+
+void Init()
+{
+	CurrentScene = new Scene;
+	CurrentScene->Set_renderer(g_Renderer);
+}
 
 void RenderScene(void)
 {
+	CurrentScene->Update();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
 
 	// Renderer Test
-	g_Renderer->DrawSolidRect(0, 0, 0, 50, 1, 0, 1, 1);
+	CurrentScene->Render();
 
 	glutSwapBuffers();
 }
@@ -35,6 +43,7 @@ void Idle(void)
 
 void MouseInput(int button, int state, int x, int y)
 {
+	CurrentScene->MouseInput(button, state, x, y);
 	RenderScene();
 }
 
@@ -57,6 +66,7 @@ int main(int argc, char **argv)
 	glutInitWindowSize(500, 500);
 	glutCreateWindow("Game Software Engineering KPU");
 
+	
 	glewInit();
 	if (glewIsSupported("GL_VERSION_3_0"))
 	{
@@ -69,6 +79,7 @@ int main(int argc, char **argv)
 
 	// Initialize Renderer
 	g_Renderer = new Renderer(500, 500);
+	Init();
 	if (!g_Renderer->IsInitialized())
 	{
 		std::cout << "Renderer could not be initialized.. \n";
