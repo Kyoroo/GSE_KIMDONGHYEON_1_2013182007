@@ -1,5 +1,7 @@
 #pragma once
 
+#define MAX_OBJECT_NUM 50
+
 struct Color {
 	float r;
 	float g;

@@ -10,19 +10,44 @@ void Scene::Set_renderer(Renderer *pRenderer)
 
 void Scene::Update()
 {
-	obj.Update();
+	for (int i = 0; i < Objnum; ++i)
+	{
+		obj[i]->Update();
+	}
 }
 
 void Scene::Render()
 {
-	renderer->DrawSolidRect(obj.Get_position().x, obj.Get_position().y, obj.Get_position().z,
-		obj.Get_size(), obj.Get_color().r, obj.Get_color().g, obj.Get_color().b, obj.Get_color().a);
+	for (int i = 0; i < Objnum; ++i)
+	{
+		renderer->DrawSolidRect(obj[i]->Get_position().x, obj[i]->Get_position().y, obj[i]->Get_position().z,
+			obj[i]->Get_size(), obj[i]->Get_color().r, obj[i]->Get_color().g, obj[i]->Get_color().b, obj[i]->Get_color().a);
+	}
 }
 
 void Scene::MouseInput(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-		obj.Set_position((x-250), (250-y), 0);
+	{
+		if (Objcurrnum >= MAX_OBJECT_NUM - 1)
+		{
+			Objcurrnum = 0;
+			delete(obj[Objcurrnum]);
+		}
+		obj[Objcurrnum] = new Object;
+		obj[Objcurrnum]->Set_position((x - 250), (250 - y), 0);
+		Objnum++;
+		Objcurrnum++;
+		if (Objnum >= MAX_OBJECT_NUM - 1)
+		{
+			Objnum = MAX_OBJECT_NUM - 1;
+		}
+	}
+}
+
+bool Scene::Collision(const Object *a, const Object *b)
+{
+	return false;
 }
 
 Scene::Scene()

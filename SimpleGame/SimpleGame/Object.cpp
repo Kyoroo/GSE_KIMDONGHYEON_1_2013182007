@@ -3,10 +3,12 @@
 
 Object::Object()
 {
-	Set_color(0,0,0,1);
+	std::default_random_engine dre(std::random_device{}());
+	std::uniform_int_distribution<> ur(-100, 100);
+	Set_color(1,1,1,1);
 	Set_position(10, 10, 0);
-	Set_size(20);
-	Set_vector(0.05, 0.05);
+	Set_size(5);
+	Set_vector(ur(dre)*0.001+0.0001, ur(dre)*0.001+0.0001);
 }
 
 void Object::Update()
