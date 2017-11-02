@@ -1,6 +1,13 @@
 #pragma once
 
-#define MAX_OBJECT_NUM 50
+#define MAX_OBJECT_NUM 10
+enum
+{
+	OBJECT_BUILDING,
+	OBJECT_CHARACTER,
+	OBJECT_BULLET,
+	OBJECT_ARROW
+};
 
 struct Color {
 	float r;
@@ -20,6 +27,13 @@ struct Vector {
 	float y;
 };
 
+struct Rect {
+	float top;
+	float bottom;
+	float left;
+	float right;
+};
+
 class Object
 {
 private:
@@ -28,11 +42,19 @@ private:
 	Color m_color;
 	float m_size;
 	Vector m_vector;
+	Rect m_rect;
+	int m_type;
+	float m_life;
+	float m_lifetime;
 public:
 	Position Get_position() const { return m_pos; }
 	Color Get_color() const { return m_color; }
 	float Get_size() const { return m_size; }
 	Vector Get_vector() const { return m_vector; }
+	Rect Get_rect() const { return m_rect; }
+	int Get_type() const { return m_type; }
+	float Get_life() const { return m_life; }
+	float Get_lifetime() const { return m_lifetime; }
 	void Set_position(float x, float y, float z)
 	{
 		m_pos.x = x, m_pos.y = y, m_pos.z = z;
@@ -46,15 +68,27 @@ public:
 	{
 		m_vector.x = x, m_vector.y = y;
 	}
-	void Update();
+	void Set_rect(float x, float y)
+	{
+		m_rect.top = y + (Get_size() / 2);
+		m_rect.bottom = y - (Get_size() / 2);
+		m_rect.left = x - (Get_size() / 2);
+		m_rect.right = x + (Get_size() / 2);
+	}
+	void Set_type(int type)
+	{
+		m_type = type;
+	}
+	void Set_life(int life)
+	{
+		m_life = life;
+	}
+	void Set_lifetime(int lifetime)
+	{
+		m_lifetime = lifetime;
+	}
+	void Update(float time);
 	void Render();
-	Object();
+	Object(int type);
 	~Object() {};
-};
-
-class Troop : public Object
-{
-public:
-	Troop();
-	~Troop();
 };

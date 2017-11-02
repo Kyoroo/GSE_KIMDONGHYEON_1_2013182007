@@ -8,3 +8,5 @@
 #include <tchar.h>
 #include <math.h>
 #include <random>
+#include <Windows.h>
+#include <mmsystem.h>

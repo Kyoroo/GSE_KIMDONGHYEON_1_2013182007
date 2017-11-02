@@ -16,6 +16,7 @@ but WITHOUT ANY WARRANTY.
 
 Renderer *g_Renderer = NULL;
 Scene *CurrentScene;
+DWORD last_time;
 
 void Init()
 {
@@ -25,7 +26,11 @@ void Init()
 
 void RenderScene(void)
 {
-	CurrentScene->Update();
+	DWORD cur_time = timeGetTime();
+	float Elapsed_time = cur_time - last_time;
+	last_time = cur_time;
+
+	CurrentScene->Update(Elapsed_time);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -90,6 +95,8 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(KeyInput);
 	glutMouseFunc(MouseInput);
 	glutSpecialFunc(SpecialKeyInput);
+
+	last_time = timeGetTime();
 
 	glutMainLoop();
 
