@@ -46,6 +46,7 @@ private:
 	int m_type;
 	float m_life;
 	float m_lifetime;
+	float m_cooltime;
 public:
 	Position Get_position() const { return m_pos; }
 	Color Get_color() const { return m_color; }
@@ -55,6 +56,7 @@ public:
 	int Get_type() const { return m_type; }
 	float Get_life() const { return m_life; }
 	float Get_lifetime() const { return m_lifetime; }
+	float Get_cooltime() const { return m_cooltime; }
 	void Set_position(float x, float y, float z)
 	{
 		m_pos.x = x, m_pos.y = y, m_pos.z = z;
@@ -87,8 +89,10 @@ public:
 	{
 		m_lifetime = lifetime;
 	}
-	void Update(float time);
-	void Render();
+	void Set_cooltime(float time)
+	{
+		m_cooltime = time;
+	}
 	Object(int type);
 	~Object() {};
 };

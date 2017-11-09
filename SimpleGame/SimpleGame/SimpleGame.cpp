@@ -100,6 +100,7 @@ int main(int argc, char **argv)
 
 	glutMainLoop();
 
+	delete CurrentScene;
 	delete g_Renderer;
 
     return 0;

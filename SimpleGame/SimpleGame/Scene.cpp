@@ -10,10 +10,12 @@ void Scene::Set_renderer(Renderer *pRenderer)
 
 void Scene::Update(float time)
 {
+	Collision();
 	for (int i = 0; i < Objnum; ++i)
 	{
-		obj_ch[i]->Update(time);
+		ObjUpdate(obj_ch[i], time);
 	}
+	ObjUpdate(obj_building, time);
 }
 
 void Scene::Render()
@@ -38,8 +40,8 @@ void Scene::MouseInput(int button, int state, int x, int y)
 		}
 		obj_ch[Objcurrnum] = new Object(OBJECT_CHARACTER);
 		obj_ch[Objcurrnum]->Set_position((x - 250), (250 - y), 0);
-		Objnum++;
-		Objcurrnum++;
+		++Objnum;
+		++Objcurrnum;
 		if (Objnum >= MAX_OBJECT_NUM)
 		{
 			Objnum = MAX_OBJECT_NUM;
@@ -47,13 +49,37 @@ void Scene::MouseInput(int button, int state, int x, int y)
 	}
 }
 
-bool Scene::Collision(const Object *a, const Object *b)
+void Scene::Collision()
 {
-	float temp_x = abs(a->Get_position().x - b->Get_position().x);
-	float temp_y = abs(a->Get_position().y - b->Get_position().y);
-	if (temp_x*temp_x + temp_y*temp_y <= a->Get_size()*a->Get_size())
-		return true;
-	return false;
+	int collision;
+	int build_coll = 0;
+	for (int i = 0; i < Objnum; ++i)
+	{
+		collision = 0;
+		float temp_x = abs(obj_ch[i]->Get_position().x - obj_building->Get_position().x);
+		float temp_y = abs(obj_ch[i]->Get_position().y - obj_building->Get_position().y);
+		if (temp_x*temp_x + temp_y*temp_y <= obj_building->Get_size()*obj_building->Get_size())
+		{
+			++collision;
+			++build_coll;
+		}
+		if (collision > 0)
+		{
+			obj_ch[i]->Set_color(1, 0, 0, 1);
+		}
+		else
+		{
+			obj_ch[i]->Set_color(1, 1, 1, 1);
+		}
+	}
+	if (build_coll > 0)
+	{
+		obj_building->Set_color(1, 1, 0, 0.4);
+	}
+	else
+	{
+		obj_building->Set_color(1, 1, 0, 1);
+	}
 }
 
 Scene::Scene()
@@ -64,4 +90,19 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+}
+
+void Scene::ObjUpdate(Object *a, float time)
+{
+	float modified_time = time / 1000;
+	float x = a->Get_position().x + (a->Get_vector().x * modified_time);
+	float y = a->Get_position().y + (a->Get_vector().y * modified_time);
+	a->Set_position(x, y, 0);
+	if (a->Get_position().x > 250 || a->Get_position().x < -250)
+		a->Set_vector(a->Get_vector().x * -1, a->Get_vector().y);
+	if (a->Get_position().y > 250 || a->Get_position().y < -250)
+		a->Set_vector(a->Get_vector().x, a->Get_vector().y * -1);
+	if (a->Get_lifetime() > 0)
+		a->Set_lifetime(a->Get_lifetime() - modified_time);
+	a->Set_cooltime(a->Get_cooltime() + time);
 }

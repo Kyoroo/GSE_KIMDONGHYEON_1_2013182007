@@ -16,8 +16,9 @@ public:
 	void Set_renderer(Renderer *pRenderer);
 	void Update(float time);
 	void Render();
+	void ObjUpdate(Object *a, float time);
 	void MouseInput(int button, int state, int x, int y);
-	bool Collision(const Object *a, const Object *b);
+	void Collision();
 	Scene();
 	~Scene();
 };
