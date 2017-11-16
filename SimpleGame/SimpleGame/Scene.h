@@ -7,9 +7,8 @@ class Scene
 {
 private:
 	Object *obj_ch[MAX_OBJECT_NUM];
-	Object *obj_building;
+	Object *obj_bullet[MAX_OBJECT_NUM];
 	Renderer *renderer = nullptr;
-	int Objnum = 0, Objcurrnum = 0;
 	DWORD time;
 
 public:
@@ -19,6 +18,7 @@ public:
 	void ObjUpdate(Object *a, float time);
 	void MouseInput(int button, int state, int x, int y);
 	void Collision();
+	bool CollisionTest(Rect a, Rect b);
 	Scene();
 	~Scene();
 };

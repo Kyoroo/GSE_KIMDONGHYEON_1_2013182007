@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_OBJECT_NUM 10
+#define MAX_OBJECT_NUM 50
 enum
 {
 	OBJECT_BUILDING,
@@ -72,14 +72,10 @@ public:
 	}
 	void Set_rect(float x, float y)
 	{
-		m_rect.top = y + (Get_size() / 2);
-		m_rect.bottom = y - (Get_size() / 2);
-		m_rect.left = x - (Get_size() / 2);
-		m_rect.right = x + (Get_size() / 2);
-	}
-	void Set_type(int type)
-	{
-		m_type = type;
+		m_rect.top = y + (m_size / 2);
+		m_rect.bottom = y - (m_size / 2);
+		m_rect.left = x - (m_size / 2);
+		m_rect.right = x + (m_size / 2);
 	}
 	void Set_life(int life)
 	{

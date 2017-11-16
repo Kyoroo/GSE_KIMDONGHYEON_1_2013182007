@@ -10,3 +10,6 @@
 #include <random>
 #include <Windows.h>
 #include <mmsystem.h>
+
+#define WINDOW_WIDTH 500
+#define WINDOW_HEIGHT 800

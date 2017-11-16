@@ -9,7 +9,7 @@ Object::Object(int type) : m_type(type)
 	{
 		Set_color(1, 1, 0, 1);
 		Set_position(0, 0, 0);
-		Set_size(20);
+		Set_size(100);
 		Set_vector(0, 0);
 		Set_rect(Get_position().x, Get_position().y);
 		Set_life(1000);
