@@ -1,6 +1,7 @@
 #pragma once
 
 #define MAX_OBJECT_NUM 50
+#define MAX_BULLET_NUM 150
 enum
 {
 	OBJECT_BUILDING,
@@ -47,6 +48,7 @@ private:
 	float m_life;
 	float m_lifetime;
 	float m_cooltime;
+	int m_parent;
 public:
 	Position Get_position() const { return m_pos; }
 	Color Get_color() const { return m_color; }
@@ -57,6 +59,12 @@ public:
 	float Get_life() const { return m_life; }
 	float Get_lifetime() const { return m_lifetime; }
 	float Get_cooltime() const { return m_cooltime; }
+	int Get_parent() const { return m_parent; }
+	int Get_id() const { return m_id; }
+	void Set_id(int i)
+	{
+		m_id = i;
+	}
 	void Set_position(float x, float y, float z)
 	{
 		m_pos.x = x, m_pos.y = y, m_pos.z = z;
@@ -88,6 +96,10 @@ public:
 	void Set_cooltime(float time)
 	{
 		m_cooltime = time;
+	}
+	void Set_parent(int parent)
+	{
+		m_parent = parent;
 	}
 	Object(int type);
 	~Object() {};
