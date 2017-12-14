@@ -161,6 +161,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -170,14 +171,27 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SimpleGame.cpp" />
+    <ClCompile Include="Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Particle.fs" />
+    <None Include="Shaders\Particle.vs" />
     <None Include="Shaders\SolidRect.fs" />
     <None Include="Shaders\SolidRect.vs" />
+    <None Include="Shaders\SolidRectGauge.fs" />
+    <None Include="Shaders\SolidRectGauge.vs" />
     <None Include="Shaders\SolidRectWithTexture.fs" />
     <None Include="Shaders\SolidRectWithTexture.vs" />
     <None Include="Shaders\SolidRectWithTextureSeq.fs" />
     <None Include="Shaders\SolidRectWithTextureSeq.vs" />
+    <None Include="Shaders\SolidRectXY.fs" />
+    <None Include="Shaders\SolidRectXY.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Source\Aliance.png" />
+    <Image Include="Source\Hord.png" />
+    <Image Include="Source\map.png" />
+    <Image Include="Source\particle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

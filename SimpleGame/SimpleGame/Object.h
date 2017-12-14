@@ -1,13 +1,14 @@
 #pragma once
 
 #define MAX_OBJECT_NUM 50
-#define MAX_BULLET_NUM 150
+#define MAX_BULLET_NUM 500
 enum
 {
 	OBJECT_BUILDING,
 	OBJECT_CHARACTER,
 	OBJECT_BULLET,
-	OBJECT_ARROW
+	OBJECT_ARROW,
+	OBJECT_MAP
 };
 
 struct Color {
@@ -49,6 +50,7 @@ private:
 	float m_lifetime;
 	float m_cooltime;
 	int m_parent;
+	int team;
 public:
 	Position Get_position() const { return m_pos; }
 	Color Get_color() const { return m_color; }
@@ -61,6 +63,7 @@ public:
 	float Get_cooltime() const { return m_cooltime; }
 	int Get_parent() const { return m_parent; }
 	int Get_id() const { return m_id; }
+	int Get_team() const { return team; }
 	void Set_id(int i)
 	{
 		m_id = i;
@@ -100,6 +103,10 @@ public:
 	void Set_parent(int parent)
 	{
 		m_parent = parent;
+	}
+	void Set_team(int t)
+	{
+		team = t;
 	}
 	Object(int type);
 	~Object() {};
